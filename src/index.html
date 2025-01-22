@@ -1,11 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Test Task</title>
+  </head>
+  <body>
+    <button id="openModal">Открыть модальное окно</button>
+    <div id="modal" class="modal">
+      <div class="modal-content">
+        <p>Это модальное окно</p>
+        <button id="closeModal">Закрыть</button>
+      </div>
+    </div>
+    <div id="app">
+      <form id="contactForm">
+        <label for="name">Имя</label>
+        <input type="text" id="name" name="name" required />
+
+        <label for="email">E-mail</label>
+        <input type="email" id="email" name="email" required />
+
+        <label for="phone">Телефон</label>
+        <input type="text" id="phone" name="phone" required />
+
+        <label for="message">Сообщение</label>
+        <textarea id="message" name="message" required></textarea>
+
+        <button type="submit">Отправить</button>
+      </form>
+    </div>
+  </body>
 </html>
