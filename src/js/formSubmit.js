@@ -1,12 +1,15 @@
 export async function submitForm(url, formData) {
-    try {
-      const response = await fetch(url, {
-        method: 'POST',
-        body: formData,
-      });
-      return await response.json();
-    } catch (error) {
-      console.error('Ошибка отправки:', error);
-    }
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(Object.fromEntries(formData)),
+  });
+
+  if (!response.ok) {
+    throw new Error('Ошибка при отправке данных');
   }
-  
+
+  return await response.json();
+}

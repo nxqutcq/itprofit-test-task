@@ -1,9 +1,11 @@
 import { initializePhoneMask } from './formMask'
 import { validateForm } from './formValidation'
 import { submitForm } from './formSubmit'
+import { showToast } from './showToast'
 import { initializeModal } from './modal'
 import '../scss/styles.scss'
 import '../scss/form.scss'
+import { showError } from './ShowError'
 
 initializePhoneMask()
 initializeModal()
@@ -15,25 +17,28 @@ form.addEventListener('submit', async (e) => {
 
   if (validateForm(form)) {
     const formData = new FormData(form)
-    const response = await submitForm('/submit', formData)
+    try {
+      const response = await submitForm(
+        'http://localhost:5000/submit',
+        formData
+      )
 
-    if (response.status === 'success') {
-      form.reset()
-      alert(response.msg)
-    } else if (response.status === 'error') {
-      for (const field in response.fields) {
-        const input = document.getElementById(field)
-        if (input) {
-          showError(input, response.fields[field])
+      if (response.status === 'success') {
+        form.reset();
+        showToast(response.msg)
+      } else if (response.status === 'error') {
+        for (const field in response.fields) {
+          const input = document.getElementById(field)
+          if (input) {
+            showError(input, response.fields[field])
+          }
         }
+        showToast('Ошибка валидации формы.', 'error')
       }
+    } catch (error) {
+      showToast('Ошибка отправки данных на сервер: ' + error.message, 'error')
     }
+  } else {
+    showToast('Форма содержит ошибки. Проверьте введенные данные.', 'error')
   }
 })
-
-function showError(input, message) {
-  const error = document.createElement('div')
-  error.className = 'error'
-  error.innerText = message
-  input.after(error)
-}
