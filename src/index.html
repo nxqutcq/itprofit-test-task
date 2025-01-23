@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Test Task</title>
+    <title>IT Profit test task</title>
   </head>
   <body>
     <button id="openModal">Открыть модальное окно</button>
@@ -16,19 +16,24 @@
     <div id="app">
       <form id="contactForm">
         <label for="name">Имя</label>
-        <input type="text" id="name" name="name" required />
+        <input type="text" id="name" name="name" />
 
         <label for="email">E-mail</label>
-        <input type="email" id="email" name="email" required />
+        <input type="email" id="email" name="email" />
 
         <label for="phone">Телефон</label>
-        <input type="text" id="phone" name="phone" required />
-
+        <input
+          type="text"
+          placeholder="+375 (XX) XXX-XX-XX"
+          id="phone"
+          name="phone"
+        />
         <label for="message">Сообщение</label>
-        <textarea id="message" name="message" required></textarea>
+        <textarea id="message" name="message"></textarea>
 
         <button type="submit">Отправить</button>
       </form>
     </div>
+    <div id="toast-container"></div>
   </body>
 </html>
