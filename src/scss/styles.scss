@@ -1,5 +1,6 @@
 @use './modal.scss';
 @use './form.scss';
+@use './toast.scss';
 
 body {
   font-family: Arial, sans-serif;
@@ -14,10 +15,6 @@ body {
   margin: 0;
   padding: 0;
 }
-.error {
-  color: red;
-  font-size: 0.8em;
-}
 
 input,
 textarea {
@@ -30,12 +27,14 @@ textarea {
 
 #closeModal,
 #openModal {
+  width: 100%;
+  margin: 20px;
   cursor: pointer;
   padding: 0.5rem;
   border-radius: 3px;
-  border-color: rgb(0, 0, 0);
-  background-color: rgb(255, 255, 255);
-  color: rgb(0, 0, 0);
-  width: fit-content;
+  border-color: rgb(91, 91, 91);
+  background-color: #007bff;
+  color: rgb(255, 255, 255);
+  max-width: 400px;
   align-items: center;
 }
