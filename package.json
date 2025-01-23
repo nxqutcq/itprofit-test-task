@@ -6,7 +6,9 @@
   "license": "MIT",
   "scripts": {
     "build": "webpack --mode production",
-    "dev": "webpack serve --mode development --open"
+    "start-server": "node server.js",
+    "start": "webpack serve --mode development --open",
+    "dev": "concurrently \"yarn start-server\" \"yarn start\""
   },
   "devDependencies": {
     "@babel/core": "^7.26.0",
@@ -15,6 +17,7 @@
     "clean-webpack-plugin": "^4.0.0",
     "css-loader": "^7.1.2",
     "html-webpack-plugin": "^5.6.3",
+    "mini-css-extract-plugin": "^2.9.2",
     "sass": "^1.83.4",
     "sass-loader": "^16.0.4",
     "style-loader": "^4.0.0",
@@ -23,6 +26,10 @@
     "webpack-dev-server": "^5.2.0"
   },
   "dependencies": {
+    "body-parser": "^1.20.3",
+    "concurrently": "^9.1.2",
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
     "imask": "^7.6.1"
   }
 }
