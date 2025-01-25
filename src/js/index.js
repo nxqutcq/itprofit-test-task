@@ -1,22 +1,44 @@
-import { initializePhoneMask } from './formMask'
-import { validateForm } from './formValidation'
+import { initializeValidation } from './formValidation'
 import { submitForm } from './formSubmit'
 import { showToast } from './showToast'
 import { initializeModal } from './modal'
 import '../scss/styles.scss'
-import '../scss/form.scss'
-import { showError } from './ShowError'
+import '../scss/_form.scss'
 
-initializePhoneMask()
 initializeModal()
 
-const form = document.getElementById('contactForm')
+const form = document.querySelector('.contactForm')
+
+initializeValidation(form)
 
 form.addEventListener('submit', async (e) => {
   e.preventDefault()
 
-  if (validateForm(form)) {
+  const inputs = form.querySelectorAll('input, textarea')
+  let isValid = true
+
+  inputs.forEach((input) => {
+    if (input.value.trim() === '') {
+      isValid = false
+      const error = input.nextElementSibling
+      if (error && error.classList.contains('form__error')) {
+        error.textContent = 'Это поле обязательно'
+        error.style.display = 'block'
+      }
+      input.classList.add('input--error')
+    } else {
+      const error = input.nextElementSibling
+      if (error && error.classList.contains('form__error')) {
+        error.textContent = ''
+        error.style.display = 'none'
+      }
+      input.classList.remove('input--error')
+    }
+  })
+
+  if (isValid) {
     const formData = new FormData(form)
+
     try {
       const response = await submitForm(
         'http://localhost:5000/submit',
@@ -24,13 +46,18 @@ form.addEventListener('submit', async (e) => {
       )
 
       if (response.status === 'success') {
-        form.reset();
-        showToast(response.msg)
+        form.reset()
+        showToast('Форма отправлена')
       } else if (response.status === 'error') {
         for (const field in response.fields) {
           const input = document.getElementById(field)
           if (input) {
-            showError(input, response.fields[field])
+            const error = input.nextElementSibling
+            if (error && error.classList.contains('form__error')) {
+              error.textContent = response.fields[field]
+              error.style.display = 'block'
+            }
+            input.classList.add('input--error')
           }
         }
         showToast('Ошибка валидации формы.', 'error')
