@@ -7,7 +7,6 @@ import '../scss/_form.scss'
 
 const API_URL = 'http://localhost:5000/submit'
 const TOAST_MESSAGES = {
-  FORM_SUCCESS: 'Форма отправлена',
   FORM_ERROR: 'Форма содержит ошибки. Проверьте введенные данные.',
   SERVER_ERROR: 'Ошибка отправки данных на сервер: ',
   VALIDATION_ERROR: 'Ошибка валидации формы.',
@@ -36,7 +35,7 @@ async function handleFormSubmit(form) {
 
     if (response.status === 'success') {
       form.reset()
-      showToast(TOAST_MESSAGES.FORM_SUCCESS)
+      showToast(response.msg)
     } else if (response.status === 'error') {
       handleValidationErrors(response.fields)
       showToast(TOAST_MESSAGES.VALIDATION_ERROR, 'error')
