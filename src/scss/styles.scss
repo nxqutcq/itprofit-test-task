@@ -40,9 +40,20 @@ button[type='submit'] {
   color: #fff;
 }
 
+button[type='submit']:active {
+  transform: scale(0.95) translateY(2px);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
 button[type='submit']:disabled {
   background-color: #ccc;
   color: #666;
+}
+
+button[type='submit']:hover {
+  background-color: #071094;
+  transition: background-color 0.3s ease;
 }
 
 html {
@@ -62,11 +73,24 @@ html {
   cursor: pointer;
   padding: 0.5rem;
   border-radius: 3px;
-  border-color: rgb(255, 255, 255);
+  border-color: rgb(0, 0, 0);
   background-color: #006dbb;
   color: rgb(255, 255, 255);
   align-items: center;
   z-index: 10;
+}
+
+#closeModal:hover,
+#openModal:hover {
+  background-color: #071094;
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+  transition: background-color 0.3s ease;
+}
+
+#closeModal:active,
+#openModal:active {
+  transform: scale(0.95) translateY(2px);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 #app {
@@ -77,11 +101,4 @@ html {
   width: 100%;
   flex-direction: column;
   padding: 1rem;
-}
-
-textarea {
-  resize: none;
-  padding: 10px;
-  border: 2px solid #ccc;
-  border-radius: 4px;
 }
