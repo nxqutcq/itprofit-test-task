@@ -3,47 +3,93 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>IT Profit test task</title>
+    <title>ITprofit test task</title>
   </head>
   <body>
-    <button id="openModal">Открыть модальное окно</button>
-    <div
-      id="modal"
-      role="dialog"
-      class="modal"
-      aria-labelledby="modalTitle"
-      aria-hidden="true"
-    >
-      <div class="modal-content">
-        <h2 id="modalTitle">Это модальное окно</h2>
-        <button
-          id="closeModal"
-          type="button"
-          aria-label="Закрыть модальное окно"
-        >
-          Закрыть
-        </button>
-      </div>
-    </div>
     <div id="app">
-      <form id="contactForm">
-        <label for="name">Имя</label>
-        <input type="text" id="name" name="name" aria-required="true" />
+      <button id="openModal">Открыть модальное окно</button>
+      <dialog
+        id="modal"
+        role="dialog"
+        class="modal"
+        aria-labelledby="modalTitle"
+      >
+        <div class="modal-content">
+          <h2 id="modalTitle">Это модальное окно</h2>
+          <button
+            id="closeModal"
+            type="button"
+            aria-label="Закрыть модальное окно"
+          >
+            Закрыть
+          </button>
+        </div>
+      </dialog>
+      <form class="contactForm" novalidate>
+        <div class="input-container">
+          <input
+            type="text"
+            id="name"
+            placeholder=""
+            aria-required="true"
+            required
+            name="name"
+          />
+          <label for="name">Имя</label>
+          <span
+            class="form__error input__name-error"
+            id="name-error"
+            aria-live="polite"
+          ></span>
+        </div>
+        <div class="input-container">
+          <input
+            type="email"
+            placeholder=""
+            id="email"
+            name="email"
+            aria-required="true"
+            required
+          />
+          <label for="email">E-mail</label>
+          <span
+            class="form__error input__email-error"
+            id="email-error"
+            aria-live="polite"
+          ></span>
+        </div>
+        <div class="input-container">
+          <input
+            type="tel"
+            placeholder=""
+            id="phone"
+            name="phone"
+            autocomplete="tel"
+            aria-required="true"
+            required
+          />
+          <label for="phone">Телефон</label>
+          <span
+            class="form__error input__phone-error"
+            id="phone-error"
+            aria-live="polite"
+          ></span>
+        </div>
 
-        <label for="email">E-mail</label>
-        <input type="email" id="email" name="email" aria-required="true" />
-
-        <label for="phone">Телефон</label>
-        <input
-          type="tel"
-          placeholder="+375 (XX) XXX-XX-XX"
-          id="phone"
-          name="phone"
-          autocomplete="tel"
-          aria-required="true"
-        />
-        <label for="message">Сообщение</label>
-        <textarea id="message" name="message" aria-required="true"></textarea>
+        <div class="input-container">
+          <textarea
+            placeholder="Сообщение"
+            id="message"
+            name="message"
+            aria-required="true"
+            required
+          ></textarea>
+          <span
+            class="form__error input__message-error"
+            id="message-error"
+            aria-live="polite"
+          ></span>
+        </div>
 
         <button type="submit">Отправить</button>
       </form>
