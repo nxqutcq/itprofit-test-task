@@ -9,32 +9,12 @@ initializeModal()
 
 const form = document.querySelector('.contactForm')
 
-initializeValidation(form)
+const validateForm = initializeValidation(form)
 
 form.addEventListener('submit', async (e) => {
   e.preventDefault()
 
-  const inputs = form.querySelectorAll('input, textarea')
-  let isValid = true
-
-  inputs.forEach((input) => {
-    if (input.value.trim() === '') {
-      isValid = false
-      const error = input.nextElementSibling
-      if (error && error.classList.contains('form__error')) {
-        error.textContent = 'Это поле обязательно'
-        error.style.display = 'block'
-      }
-      input.classList.add('input--error')
-    } else {
-      const error = input.nextElementSibling
-      if (error && error.classList.contains('form__error')) {
-        error.textContent = ''
-        error.style.display = 'none'
-      }
-      input.classList.remove('input--error')
-    }
-  })
+  const isValid = validateForm()
 
   if (isValid) {
     const formData = new FormData(form)
@@ -49,17 +29,7 @@ form.addEventListener('submit', async (e) => {
         form.reset()
         showToast('Форма отправлена')
       } else if (response.status === 'error') {
-        for (const field in response.fields) {
-          const input = document.getElementById(field)
-          if (input) {
-            const error = input.nextElementSibling
-            if (error && error.classList.contains('form__error')) {
-              error.textContent = response.fields[field]
-              error.style.display = 'block'
-            }
-            input.classList.add('input--error')
-          }
-        }
+        handleValidationErrors(response.fields)
         showToast('Ошибка валидации формы.', 'error')
       }
     } catch (error) {
@@ -69,3 +39,17 @@ form.addEventListener('submit', async (e) => {
     showToast('Форма содержит ошибки. Проверьте введенные данные.', 'error')
   }
 })
+
+function handleValidationErrors(fields) {
+  for (const field in fields) {
+    const input = document.getElementById(field)
+    if (input) {
+      const error = input.nextElementSibling
+      if (error && error.classList.contains('form__error')) {
+        error.textContent = fields[field]
+        error.style.display = 'block'
+      }
+      input.classList.add('input--error')
+    }
+  }
+}

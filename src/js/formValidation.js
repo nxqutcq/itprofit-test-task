@@ -32,10 +32,7 @@ export function initializeValidation(form) {
       showError(input, 'Это поле обязательно')
       return false
     } else if (!namePattern.test(input.value)) {
-      showError(
-        input,
-        'Разрешены символы латиницы, кириллицы, пробелы и дефисы'
-      )
+      showError(input, 'Разрешены только буквы, пробелы и дефисы')
       return false
     }
     return true
@@ -72,49 +69,34 @@ export function initializeValidation(form) {
     return true
   }
 
+  const validateInput = (input) => {
+    if (input === nameInput) {
+      return validateName(input)
+    } else if (input === phoneInput) {
+      return validatePhone(input)
+    } else if (input === emailInput) {
+      return validateEmail(input)
+    } else if (input === messageInput) {
+      return validateMessage(input)
+    } else if (!input.value.trim()) {
+      showError(input, 'Это поле обязательно')
+      return false
+    }
+    return true
+  }
+
   inputs.forEach((input) => {
-    input.addEventListener('input', () => {
-      resetError(input)
-    })
-
-    input.addEventListener('blur', () => {
-      resetError(input)
-
-      if (input === nameInput) {
-        validateName(input)
-      } else if (input === phoneInput) {
-        validatePhone(input)
-      } else if (input === emailInput) {
-        validateEmail(input)
-      } else if (input === messageInput) {
-        validateMessage(input)
-      } else if (!input.value.trim()) {
-        showError(input, 'Это поле обязательно')
-      }
-    })
+    input.addEventListener('input', () => resetError(input))
+    input.addEventListener('blur', () => validateInput(input))
   })
 
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    let isValid = true;
-
+  return () => {
+    let isValid = true
     inputs.forEach((input) => {
-      resetError(input);
-
-      if (input === nameInput) {
-        if (!validateName(input)) isValid = false;
-      } else if (input === phoneInput) {
-        if (!validatePhone(input)) isValid = false;
-      } else if (input === emailInput) {
-        if (!validateEmail(input)) isValid = false;
-      } else if (input === messageInput) {
-        if (!validateMessage(input)) isValid = false;
-      } else if (!input.value.trim()) {
-        showError(input, 'Это поле обязательно');
-        isValid = false;
+      if (!validateInput(input)) {
+        isValid = false
       }
-    });
-
-    return isValid;
-  });
+    })
+    return isValid
+  }
 }
