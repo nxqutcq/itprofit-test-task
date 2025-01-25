@@ -26,6 +26,8 @@ body {
 }
 
 button {
+  display: flex;
+  justify-content: center;
   padding: 10px;
   border-radius: 3px;
   font-weight: 500;
@@ -72,7 +74,9 @@ html {
   gap: 1rem;
   display: flex;
   max-width: 400px;
+  width: 100%;
   flex-direction: column;
+  padding: 1rem;
 }
 
 textarea {

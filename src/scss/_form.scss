@@ -1,9 +1,9 @@
 form {
   display: flex;
-  width: 400px;
+  max-width: 400px;
+  width: 100%;
   flex-direction: column;
   padding: 20px;
-  min-width: 320px;
   background-color: #f9f9f9;
   border: 1px solid #ddd;
   border-radius: 8px;
